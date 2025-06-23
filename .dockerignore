@@ -1,0 +1,25 @@
+# ไม่เอา node_modules บนเครื่องจริง (Docker สร้างของมันเอง)
+node_modules
+.next
+dist
+out
+
+# ไม่เอาไฟล์ git หรือ config
+.git
+.gitignore
+
+# ไม่เอาไฟล์ env เฉพาะ local dev
+.env.local
+.env.development
+.env.*
+
+# ไม่เอาไฟล์ editor/IDE
+*.log
+*.swp
+.vscode
+.idea
+
+# ไม่เอา test
+__tests__/
+coverage/
+*.test.*
