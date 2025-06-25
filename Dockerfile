@@ -18,13 +18,16 @@ RUN NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL npm run build
 # Step 2: Production stage
 FROM node:24-alpine AS runner
 
+USER 1001
+
 WORKDIR /app
 
 # Copy only necessary files from build stage
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=1001:1001 /app/package.json ./
+# COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder --chown=1001:1001 /app/.next .next
+COPY --from=builder --chown=1001:1001 /app/public ./public
+
 
 ENV NODE_ENV=production
 
