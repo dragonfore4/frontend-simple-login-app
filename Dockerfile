@@ -24,8 +24,7 @@ WORKDIR /app
 
 # Copy only necessary files from build stage
 COPY --from=builder --chown=1001:1001 /app/package.json ./
-# COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder --chown=1001:1001 /app/.next .next
+COPY --from=builder --chown=1001:1001 /app/.next/static .next/static
 COPY --from=builder --chown=1001:1001 /app/public ./public
 
 
