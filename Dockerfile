@@ -24,6 +24,7 @@ WORKDIR /app
 
 # Copy only necessary files from build stage
 COPY --from=builder --chown=1001:1001 /app/package.json ./
+COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --chown=1001:1001 /app/.next/static .next/static
 COPY --from=builder --chown=1001:1001 /app/public ./public
 
@@ -31,4 +32,4 @@ COPY --from=builder --chown=1001:1001 /app/public ./public
 ENV NODE_ENV=production
 
 EXPOSE 3000
-CMD ["npm", "start"] 
+CMD ["node", "server.js"] 
