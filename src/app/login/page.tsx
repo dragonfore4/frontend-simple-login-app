@@ -1,32 +1,31 @@
 "use client";
 import { useState } from "react";
-import { useLogger } from '@logtail/next';
+import { useLogger } from "@logtail/next";
 
 export default function Home() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [result, setResult] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [result, setResult] = useState("");
 
   const log = useLogger();
 
   const login = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ username, password })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await res.json();
 
     if (res.ok) {
-        log.info('Login successful', { username });
-        setResult(res.ok ? data.message : data.error);
+      log.info("Login successful", { username });
+      setResult(res.ok ? data.message : data.error);
     } else {
-        log.error('Login failed', { status: res.status, error: data.error });
-        setResult(data.error || 'An unexpected error occurred');
+      log.error("Login failed", { status: res.status, error: data.error });
+      setResult(data.error || "An unexpected error occurred");
     }
-
   };
 
   return (
@@ -35,10 +34,11 @@ export default function Home() {
         <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
           ✨ Welcome Back
         </h1>
-
         <div className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Username</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Username
+            </label>
             <input
               type="text"
               className="w-full px-4 py-2 bg-white/70 backdrop-blur border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -49,7 +49,9 @@ export default function Home() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Password
+            </label>
             <input
               type="password"
               className="w-full px-4 py-2 bg-white/70 backdrop-blur border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -74,7 +76,10 @@ export default function Home() {
         </div>
 
         <p className="mt-6 text-center text-xs text-gray-500">
-          API Endpoint: <span className="font-mono">{process.env.NEXT_PUBLIC_BACKEND_URL}</span>
+          API Endpoint:{" "}
+          <span className="font-mono">
+            {process.env.NEXT_PUBLIC_BACKEND_URL}
+          </span>
         </p>
       </div>
     </div>
