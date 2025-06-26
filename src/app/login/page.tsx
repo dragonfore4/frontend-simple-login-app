@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
+import { useLogger } from '@logtail/next';
 
 export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
+
+  const log = useLogger();
 
   const login = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
@@ -13,8 +16,17 @@ export default function Home() {
       credentials: 'include',
       body: JSON.stringify({ username, password })
     });
+
     const data = await res.json();
-    setResult(res.ok ? data.message : data.error);
+
+    if (res.ok) {
+        log.info('Login successful', { username });
+        setResult(res.ok ? data.message : data.error);
+    } else {
+        log.error('Login failed', { status: res.status, error: data.error });
+        setResult(data.error || 'An unexpected error occurred');
+    }
+
   };
 
   return (
