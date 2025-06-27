@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  /* 🎨 Background Colors */
+  --color-dark: hsl(0, 0%, 0%);
+  --color-dark-soft: hsl(0, 0%, 5%);
+  --color-dark-mute: hsl(0, 0%, 10%);
+
+  /* 📝 Text Colors */
+  --color-light: hsl(0, 0%, 95%);
+  --color-light-muted: hsl(0, 0%, 70%);
+}
