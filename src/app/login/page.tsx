@@ -10,7 +10,7 @@ export default function LoginPage() {
   const log = useLogger();
 
   const login = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
